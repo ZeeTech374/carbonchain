@@ -18,6 +18,18 @@ pub struct MrvDataPoint {
     pub recorded_at: u64,
     /// Flagged when the reading exceeds the project's effective anomaly threshold.
     pub anomaly: bool,
+    /// Disputed flag for invalid readings
+    pub disputed: bool,
+}
+
+/// Oracle reputation tracking for slashing mechanism
+#[derive(Clone, Debug, PartialEq)]
+#[contracttype]
+pub struct OracleReputation {
+    pub oracle: Address,
+    pub reputation_score: i32,
+    pub dispute_count: u32,
+    pub deregistered: bool,
 }
 
 #[derive(Clone)]
@@ -47,6 +59,8 @@ pub enum DataKey {
     TrustedRegistry,
     /// Ring buffer slot storage for per-project MRV history.
     HistorySlots(String),
+    /// Oracle reputation score (Address -> OracleReputation)
+    OracleRep(Address),
     /// Ring buffer metadata (head pointer, count) for per-project MRV history.
     HistoryMeta(String),
     /// Per-methodology anomaly threshold in basis points.

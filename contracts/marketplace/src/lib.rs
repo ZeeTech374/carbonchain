@@ -10,6 +10,20 @@ use soroban_sdk::{
 const MIN_TTL: u32 = 6_307_200;
 /// Threshold below which TTL is extended.
 const TTL_THRESHOLD: u32 = MIN_TTL / 2;
+
+/// Dutch Auction pricing model
+#[derive(Clone, Debug, PartialEq)]
+#[contracttype]
+pub struct DutchAuction {
+    pub listing_id: u64,
+    pub seller: Address,
+    pub credit_id: BytesN<32>,
+    pub start_price: i128,
+    pub reserve_price: i128,
+    pub start_time: u64,
+    pub duration_seconds: u64,
+    pub is_exponential: bool,
+}
 /// Maximum platform fee: 10 percent.
 pub const MAX_FEE_BPS: u32 = 1_000;
 

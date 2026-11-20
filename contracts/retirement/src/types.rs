@@ -48,6 +48,8 @@ pub struct RetirementRecord {
     /// Issue #544 — IPFS hash of the off-chain retirement certificate PDF.
     /// Empty string for legacy retirements that pre-date this field.
     /// Set after retirement via `set_certificate_hash`.
+    /// Certificate fingerprint for on-chain verification (SHA256 hash of record data)
+    pub certificate_fingerprint: Option<BytesN<32>>,
     pub certificate_ipfs_hash: String,
     /// Issue #589 — vintage year of the credit (e.g. 2024). Populated from
     /// credit metadata at retirement time to enable complete provenance on
